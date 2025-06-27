@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trawise Amount Tracker</title>
+  <style>
+    body { font-family: Poppins, sans-serif; background: #F4FBFC; color: #1F2937; }
+    .form-box, .log { background: #E6F8F9; padding: 15px; margin: 10px 0; border-radius: 8px; }
+    input, select { margin: 5px; padding: 6px; }
+  </style>
+</head>
+<body>
+  <h2>💰 Trawise Amount Received Tracker</h2>
+  <div class="form-box">
+    <input id="amount" type="number" placeholder="Enter amount" />
+    <select id="type">
+      <option>Received</option>
+      <option>Paid</option>
+    </select>
+    <input id="desc" type="text" placeholder="Description" />
+    <button onclick="addTransaction()">Add</button>
+  </div>
+  <div class="log" id="log"></div>
+
+  <script>
+    let transactions = [];
+    function addTransaction() {
+      const amt = parseFloat(document.getElementById('amount').value);
+      const type = document.getElementById('type').value;
+      const desc = document.getElementById('desc').value;
+      const now = new Date().toLocaleString();
+      transactions.push({ amount: amt, type, desc, time: now });
+      displayLog();
+    }
+
+    function displayLog() {
+      const log = document.getElementById('log');
+      log.innerHTML = '<h3>Transaction Log</h3>' + transactions.map(t =>
+        `<p><b>${t.type}</b>: ₹${t.amount} – ${t.desc} <br/>🕒 ${t.time}</p>`
+      ).join('');
+    }
+  </script>
+</body>
+</html>
